@@ -302,7 +302,6 @@ services:
           - eip-client-senaite
     restart: unless-stopped
     volumes:
-      - "\${EIP_OPENMRS_SENAITE_ROUTES_PATH}:/eip-client/routes"
       - eip-home-senaite:/eip-home
 version: "3.7"
 
