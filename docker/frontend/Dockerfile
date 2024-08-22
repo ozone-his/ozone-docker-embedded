@@ -3,6 +3,6 @@ ADD distro/binaries/openmrs/frontend /usr/share/nginx/html
 ADD distro/configs/openmrs/frontend_config /usr/share/nginx/html/ozone
 RUN mkdir -p /app
 WORKDIR /app
-COPY docker-embedded/docker/frontend/startup.sh /app
+COPY docker-embedded/frontend/startup.sh /app
 RUN chmod +x /app/startup.sh
 CMD ["/app/startup.sh"]

@@ -63,9 +63,9 @@
                                 ${project.build.directory}/${project.artifactId}-${project.version}</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}</directory>
+                                    <directory>${project.basedir}/docker</directory>
                                     <includes>
-                                        <include>docker/</include>
+                                        <include>**</include>
                                     </includes>
                                     <excludes>
                                         <exclude>scripts/distro/</exclude>

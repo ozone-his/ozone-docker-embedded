@@ -28,7 +28,7 @@ services:
       EIP_DB_PASSWORD_SENAITE: \${EIP_DB_PASSWORD_SENAITE}
     healthcheck:
       test: "exit 0"
-    image: mekomsolutions/ozone-embedded-mysql
+    image: mekomsolutions/ozone-embedded-mysql:${dockertag}
     networks:
       - ozone
     ports:
@@ -39,7 +39,7 @@ services:
 
   postgresql:
     command: "postgres -c wal_level=logical -c max_wal_senders=10 -c max_replication_slots=10"
-    image: mekomsolutions/ozone-embedded-postgresql
+    image: mekomsolutions/ozone-embedded-postgresql:${dockertag}
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: \${POSTGRES_USER}
@@ -109,9 +109,6 @@ services:
     restart: unless-stopped
     volumes:
       - "\${ODOO_FILESTORE:-odoo-filestore}:/var/lib/odoo/filestore"
-      - "\${ODOO_EXTRA_ADDONS:-odoo-extra-addons}:/mnt/extra-addons"
-      - "\${ODOO_CONFIG_PATH:-odoo-config}:/mnt/odoo_config"
-      - "\${ODOO_CONFIG_FILE_PATH:-odoo-config}:/etc/properties/odoo.conf"
       - "\${ODOO_CONFIG_CHECKSUMS_PATH:-odoo-checksums}:/mnt/checksums"
     
   # Odoo - OpenMRS integration service
@@ -164,7 +161,6 @@ services:
           - eip-odoo-openmrs
     restart: unless-stopped
     volumes:
-      - "\${EIP_ODOO_OPENMRS_ROUTES_PATH}:/eip-client/routes"
       - eip-home-odoo:/eip-home
   # OpenMRS 3 Backend
   openmrs:
@@ -201,12 +197,7 @@ services:
     restart: unless-stopped
     volumes:
       - "openmrs-data:/openmrs/data"
-      - "\${OPENMRS_OWAS_PATH:-openmrs-owas}:/openmrs/distribution/openmrs_owas/"
-      - "\${OPENMRS_CORE_PATH:-openmrs-core}:/openmrs/distribution/openmrs_core/"
-      - "\${OPENMRS_MODULES_PATH:-openmrs-modules}:/openmrs/distribution/openmrs_modules/"
-      - "\${OPENMRS_CONFIG_PATH:-openmrs-config}:/openmrs/distribution/openmrs_config/"
       - "\${OPENMRS_CONFIG_CHECKSUMS_PATH:-openmrs-config-checksums}:/openmrs/data/configuration_checksums"
-      - "\${OPENMRS_PROPERTIES_PATH}:/etc/properties/"
 
   # OpenMRS 3 Frontend
   frontend:
@@ -248,9 +239,6 @@ services:
       - ozone
       - web
     restart: unless-stopped
-    volumes:
-      - "\${OPENMRS_FRONTEND_BINARY_PATH}:/usr/share/nginx/html"
-      - "\${OPENMRS_FRONTEND_CONFIG_PATH}:/usr/share/nginx/html/ozone"
   # SENAITE
   senaite:
     environment: 
@@ -269,7 +257,6 @@ services:
       - web
     restart: unless-stopped
     volumes:
-      - \${SENAITE_CONFIG_PATH}:/data/importdata/senaite
       - senaite-filestorage:/data/filestorage
       - senaite-blobstorage:/data/blobstorage
 
