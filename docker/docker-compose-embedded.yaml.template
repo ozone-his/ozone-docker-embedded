@@ -182,7 +182,7 @@ services:
       timeout: 5s
       retries: 48
       start_period: 120s
-    image: ozone-embedded-openmrs-3-backend:${dockertag}
+    image: ozone-embedded-openmrs-backend:${dockertag}
     labels:
       traefik.enable: "true"
       traefik.http.routers.openmrs.rule: "Host(`\${O3_HOSTNAME}`) && PathPrefix(`/openmrs`)"
@@ -212,7 +212,7 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/"]
       timeout: 5s
-    image: ozone-embedded-openmrs-3-frontend:${dockertag}
+    image: ozone-embedded-openmrs-frontend:${dockertag}
     labels:
       traefik.enable: "true"
       traefik.http.routers.frontend.rule: "Host(`\${O3_HOSTNAME}`) && PathPrefix(`/openmrs/spa/`)"
@@ -315,7 +315,7 @@ services:
     networks:
       ozone:
     ports:
-      - "${PROXY_PUBLIC_PORT:-80}:80"
+      - "\${PROXY_PUBLIC_PORT:-80}:80"
       - "8069:8069"
       - "8081:8081"
       - "8088:8088"
