@@ -206,9 +206,9 @@ services:
       API_URL: /openmrs
       SPA_CONFIG_URLS: \${SPA_CONFIG_URLS}
       SPA_DEFAULT_LOCALE: \${SPA_DEFAULT_LOCALE}
-      ODOO_PUBLIC_URL: https://\${ODOO_HOSTNAME}
-      OPENMRS_PUBLIC_URL: https://\${O3_HOSTNAME}
-      SENAITE_PUBLIC_URL: https://\${SENAITE_HOSTNAME}
+      ODOO_PUBLIC_URL: https://\${ODOO_HOSTNAME:-http://localhost:8069}
+      OPENMRS_PUBLIC_URL: https://\${O3_HOSTNAME:-http://localhost}
+      SENAITE_PUBLIC_URL: https://\${SENAITE_HOSTNAME:-http://localhost:8081}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/"]
       timeout: 5s
